@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!--<link href="../dist/output.css" rel="stylesheet">-->
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+
+  <script src="./js/main.js" defer></script>
+
+</head>
+
+<body>
+  <div class="grid   ">
+    <!-- Première ligne violette -->
+    <div class="bg-indigo-950">
+      <h1 class="text-center text-4xl font-bold text-white m-8">To do</h1>
+    </div>
+
+    <!-- Ligne centrale blanche -->
+    <div class="bg-white grid   justify-items-center  items-center  self-start">
+      <div
+        class="bg-white  flex flex-col sm:flex-row   justify-evenly    gap-5  m-8  p-8 border-b-2 border-y-indigo-300 ">
+        <button id="btnOpenAjoutForm" name_form="btnajout"
+          class="hover:bg-blue-500 bg-indigo-950 text-white  w-40  h-10 font-bold py-2 px-4 rounded-full">
+          + Ajouter Tache
+        </button>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white   h-10 w-40 font-bold py-2 px-4 rounded-full">
+          Ajouter
+        </button>
+        <button class="hover:bg-blue-500 bg-indigo-950 text-white  w-40  h-10 font-bold py-2 px-4 rounded-full">
+          Ajouter +
+        </button>
+      </div>
+
+
+      <div id="main" class=" grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-3 mx-2 justify-evenly   ">
+
+        <div class="shadow-xl border   bg-[url('img/bg1.jpg')] rounded    max-w-96  sm:w-full">
+          <div class="flex flex-row justify-between items-center bg-white   p-3 m-3 rounded-full shadow-md">
+            <h2 class="text-xl font-semibold text-gray-700">To Do</h2>
+            <span id="cmp_ToDo" class="text-lg font-bold text-blue-500">0</span>
+          </div>
+          <div>
+            <ul id="ulTodo">
+              <li class="  grid   border rounded-lg shadow-xl bg-white m-4 p-4  gap-2">
+                <div class="flex  justify-between items-center text-center ">
+                  <h5 class="titre text-lg font-semibold  text-gray-700 border-b-2 border-indigo-200"> tache 1</h5>
+
+                  <div class="flex justify-center items-center gap-2 text-center">
+                    <span onclick="SupprimerTache(this)"
+                      class=" material-symbols-outlined   cursor-pointer text-red-500 hover:text-red-400  h-4 w-4 ">
+                      delete </span>
+                    <span onclick="showformEdit(this)" name_form="btnEdit"
+                      class="  material-symbols-outlined  cursor-pointer  text-yellow-300 h-4 w-4 ">border_color</span>
+                  </div>
+
+                </div>
+                <div class="flex justify-between center items-center gap-2 text-center">
+                  <span
+                    class="block bg-orange-500  text-center   text-white font-semibold  gray-500   rounded-full w-10 h-4 text-xs">
+                    P1 </span>
+                  <span class="text-center  text-gray-500 text-xs"> 12-12-2008 </span>
+                </div>
+                <p class="description text-gray-500 text-xs  "> Realisation des Projet Js</p>
+
+                <div class="flex  gap-4  justify-evenly my-2.5 rounded-full border border-indigo-200 px-4">
+                  <div>
+                    <input onclick="editstatut(this)" type="radio" value="todo" name="radioa"
+                      class=" form-radio h-3 w-3 text-red-600 focus:ring-blue-500" checked />
+                    <label for="radio_todo" class="  text-xs text-red-500">To Do</label>
+                  </div>
+                  <div flex flex-col>
+                    <input onclick="editstatut(this)" type="radio" value="doing" name="radioa"
+                      class="form-radio h-3 w-3 text-orange-600 focus:ring-blue-500" />
+                    <label for="radio_doing" class=" text-xs  text-orange-500">Doing</label>
+                  </div>
+                  <div flex flex-col>
+                    <input onclick="editstatut(this)" type="radio" value="done" name="radioa"
+                      class="form-radio h-3 w-3 text-green-600 focus:ring-blue-500" />
+                    <label for="radio_done" class=" text-xs  text-green-500">Done</label>
+                  </div>
+                </div>
+
+
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="shadow-xl border   bg-[url('img/bg11.jpg')] rounded    max-w-96  sm:w-full">
+          <div class="flex flex-row justify-between items-center bg-white   p-3 m-3 rounded-full shadow-md">
+            <h2 class="text-xl font-semibold text-gray-700">Doing </h2>
+            <span id="cmp_Doing" class="text-lg font-bold text-blue-500">0</span>
+          </div>
+          <div>
+            <ul id="ulDoing">
+              <!--  li : s ajout ici -->
+            </ul>
+          </div>
+        </div>
+        <div class="shadow-xl border   bg-[url('img/bg111.jpg')] rounded    max-w-96  sm:w-full">
+          <div class="flex flex-row justify-between items-center bg-white   p-3 m-3 rounded-full shadow-md">
+            <h2 class="text-xl font-semibold text-gray-700"> Done </h2>
+            <span id="cmp_Done" class="text-lg font-bold text-blue-500">0</span>
+          </div>
+          <div>
+            <ul id="ulDone">
+              <li>
+
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+
+
+      <!----  formulaire  Ajout ------->
+
+      <div id="modalFormAjout"
+        class=" hidden fixed  w-96  p-5 shadow-xl  rounded-lg items-center justify-center  bg-[url('../img/bg6.jpg')] z-10  text-white  ">
+        <span id="closeFormAjout" class="material-symbols-outlined absolute right-5 cursor-pointer hover:text-red-900">
+          cancel
+        </span>
+        <h2 class="text-xl font-bold mb-4  text-center">Add New Task</h2>
+        <form class="flex flex-col gap-3" method="get">
+
+          <label for="titre">Tache:</label>
+          <input type="text" id="titre" name="titre" placeholder="entrer votre tâche"
+            class="bg-gray-50 border text-gray-900 text-sm rounded-lg p-2.5 focus:ring focus:ring-indigo-300">
+          <div class="flex justify-evenly my-2.5">
+            <div>
+              <input type="radio" id="radio_todo" value="todo" name="statut"
+                class="form-radio h-4 w-4 text-blue-600 focus:ring-blue-500" checked />
+              <label for="radio_todo" class="ml-2 text-white">To do</label>
+            </div>
+            <div>
+              <input type="radio" id="radio_doing" value="doing" name="statut"
+                class="form-radio h-4 w-4 text-blue-600 focus:ring-blue-500" />
+              <label for="radio_doing" class="ml-2 text-white">Doing</label>
+            </div>
+            <div>
+              <input type="radio" id="radio_done" name="statut" value="done"
+                class="form-radio h-4 w-4 text-blue-600 focus:ring-blue-500" />
+              <label for="radio_done" class="ml-2 text-white">done</label>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 justify-around ">
+            <div>
+              <label for="priorite">priorité</label>
+              <select id="priorite"
+                class="bg-gray-50 border text-gray-900 text-sm rounded-lg p-2.5 focus:ring focus:ring-indigo-300">
+                <option value="0">Priorité de Tâche</option>
+                <option value="p0">P0</option>
+                <option value="p1">P1</option>
+                <option value="p2">P2</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="date">Date</label>
+              <input type="date" id="date"
+                class="bg-gray-50 border text-gray-900 text-sm rounded-lg p-2.5 focus:ring focus:ring-indigo-300">
+            </div>
+
+          </div>
+          <label for="description">Description:</label>
+          <textarea id="description" name="description" placeholder="Entre votre description"
+            class="bg-gray-50 border text-gray-900 text-sm rounded-lg p-2.5 focus:ring focus:ring-indigo-300"></textarea>
+
+          <button type="submit" id="btnAjoutTache"
+            class=" rounded-full  bg-indigo-950 border-white p-2.5 text-xl">Ajouter</button>
+        </form>
+      </div>
+
+
+      <!----  formulaire  Edit ------->
+
+      <div id="modalFormEdit"
+        class=" hidden fixed  w-96  p-5 shadow-xl  rounded-lg items-center justify-center  bg-[url('img/bg6.jpg')] z-10  text-white  ">
+        <span id="closeFormEdit" class="material-symbols-outlined absolute right-5 cursor-pointer hover:text-red-900">
+          cancel
+        </span>
+        <h2 class="text-xl font-bold mb-4  text-center  ">Edit Tache</h2>
+        <form class="flex flex-col gap-3" method="get">
+
+          <label for="titre  ">Tache:</label>
+          <input type="text" id="titre1" name="titre" placeholder="entrer votre tâche"
+            class="bg-gray-50 border text-gray-900 text-sm rounded-lg p-2.5 focus:ring focus:ring-indigo-300">
+          <div class="flex justify-evenly my-2.5">
+            <div>
+              <input type="radio" id="radio_todo1" value="todo" name="statut1"
+                class="form-radio h-4 w-4 text-blue-600 focus:ring-blue-500" checked />
+              <label for="radio_todo" class="ml-2 text-white">To do</label>
+            </div>
+            <div>
+              <input type="radio" id="radio_doing" value="doing" name="statut1"
+                class="form-radio h-4 w-4 text-blue-600 focus:ring-blue-500" />
+              <label for="radio_doing" class="ml-2 text-white">Doing</label>
+            </div>
+            <div>
+              <input type="radio" id="radio_done" name="statut1" value="done"
+                class="form-radio h-4 w-4 text-blue-600 focus:ring-blue-500" />
+              <label for="radio_done" class="ml-2 text-white">done</label>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 justify-around ">
+            <div>
+              <label for="priorite">priorité</label>
+              <select id="priorite1"
+                class="bg-gray-50 border text-gray-900 text-sm rounded-lg p-2.5 focus:ring focus:ring-indigo-300">
+                <option value="0">Priorité de Tâche</option>
+                <option value="p0">P0</option>
+                <option value="p1">P1</option>
+                <option value="p2">P2</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="date">Date</label>
+              <input type="date" id="date1"
+                class="bg-gray-50 border text-gray-900 text-sm rounded-lg p-2.5 focus:ring focus:ring-indigo-300">
+            </div>
+
+          </div>
+          <label for="description">Description:</label>
+          <textarea id="description1" name="description" placeholder="Entre votre description"
+            class="bg-gray-50 border text-gray-900 text-sm rounded-lg p-2.5 focus:ring focus:ring-indigo-300"></textarea>
+
+          <button type="submit" id="btnEditTache" class=" rounded-full  bg-indigo-950 border-white p-2.5 text-xl">
+            Modifier </button>
+        </form>
+      </div>
+
+    </div>
+
+    <!-- Dernière ligne violette -->
+    <div class="bg-indigo-950"></div>
+
+  </div>
+
+  <!--<img src="./img/bg6.jpg" alt=""> -->
+
+
+
+
+
+
+
+
+</body>
+
+</html>
