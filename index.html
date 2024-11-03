@@ -8,10 +8,13 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
   <script src="./js/main.js" defer></script>
-
+  <meta name="description" content="To-Do List application pour gestion et planification des taches .">
+  <meta name="keywords" content="To-Do List, tasks, gestion des tâches, JavaScript, HTML, CSS">
+  <meta name="author" content="Mina">
+  <title>Mon projet de To-Do List</title> 
 </head>
 
-<bodyc class=" min-h-screen flex flex-col">
+<body class=" min-h-screen flex flex-col">
   <div class="grid ">
     <!-- entete   -->
     <div class="  flex   justify-between  items-center p-2.5 bg-gradient-to-r from-indigo-950 via-indigo-800 to-blue-600">
@@ -50,7 +53,7 @@
               bar_chart_4_bars
             </span> 
               
-            </button id="btnFiltre">
+     
             <button><span class="material-symbols-outlined"> tune
               </span></button>
 
@@ -146,7 +149,7 @@
               </p>
               <form class="flex flex-col gap-3" method="get">
 
-                <label for="titre  ">Tache:</label>
+                <label for="titre">Tache:</label>
                 <input type="text" id="titre1" name="titre" placeholder="entrer votre tâche"
                   class="bg-gray-50 border text-gray-900 text-sm rounded-lg p-2.5 focus:ring focus:ring-indigo-300">
                 <div class="flex justify-evenly my-2.5">
@@ -156,13 +159,11 @@
                     <label for="radio_todo" class="ml-2 text-white">To do</label>
                   </div>
                   <div>
-                    <input type="radio" id="radio_doing" value="doing" name="statut1"
-                      class="form-radio h-4 w-4 text-blue-600 focus:ring-blue-500" />
+                    <input type="radio" id="radio_doing1" value="doing" name="statut1"  class="form-radio h-4 w-4 text-blue-600 focus:ring-blue-500" />
                     <label for="radio_doing" class="ml-2 text-white">Doing</label>
                   </div>
                   <div>
-                    <input type="radio" id="radio_done" name="statut1" value="done"
-                      class="form-radio h-4 w-4 text-blue-600 focus:ring-blue-500" />
+                    <input type="radio" id="radio_done1" name="statut1" value="done" class="form-radio h-4 w-4 text-blue-600 focus:ring-blue-500" />
                     <label for="radio_done" class="ml-2 text-white">done</label>
                   </div>
                 </div>
@@ -215,14 +216,14 @@
                 <div class=" bg-white  rounded-lg shadow-md shadow-blue-100 p-3 mb-4">
                 <h4 class="text-lg text-indigo-500 font-bold">Taches </h4>
                 <p class="text-sm text-gray-500 font-bold">À Planifier : <span id="statistic_todo1" class="text-lg text-red-500 font-bold  "> </span></p>
-                <p class="text-sm text-gray-500 font-bold">En Progression :</h5> <span id="statistic_doing1" class="text-lg text-orange-500 font-bold"></span></p>
-                <p class="text-sm text-gray-500 font-bold">Accompli :</h5> <span id="statistic_done1" class="text-lg text-green-500 font-bold"></span></p>
+                <p class="text-sm text-gray-500 font-bold">En Progression : <span id="statistic_doing1" class="text-lg text-orange-500 font-bold"></span></p>
+                <p class="text-sm text-gray-500 font-bold">Accompli : <span id="statistic_done1" class="text-lg text-green-500 font-bold"></span></p>
               </div>
               <div class=" bg-white rounded-lg shadow-md shadow-blue-100 rounded-lg p-3">
-                <p class="text-lg text-indigo-500 font-bold">Priorité  </h4>
-                <p class="text-sm text-gray-500 font-bold"> Immédiate  :</h5> <span id="statistic_p1" class="text-lg text-red-500 font-bold"></span></p>
-                <p class="text-sm text-gray-500 font-bold">Moyenne :</h5> <span id="statistic_p2" class="text-lg text-orange-500 font-bold"></span></p>
-                <p class="text-sm text-gray-500 font-bold">Faible :</h5> <span id="statistic_p3" class="text-lg text-green-500 font-bold"></span></p>
+                <h4 class="text-lg text-indigo-500 font-bold">Priorité  </h4>
+                <p class="text-sm text-gray-500 font-bold"> Immédiate  : <span id="statistic_p1" class="text-lg text-red-500 font-bold"></span></p>
+                <p class="text-sm text-gray-500 font-bold">Moyenne :<span id="statistic_p2" class="text-lg text-orange-500 font-bold"></span></p>
+                <p class="text-sm text-gray-500 font-bold">Faible :<span id="statistic_p3" class="text-lg text-green-500 font-bold"></span></p>
               </div>
            
             </div>
