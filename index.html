@@ -5,15 +5,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!--<link href="../dist/output.css" rel="stylesheet">-->
-
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-
   <script src="./js/main.js" defer></script>
 
 </head>
 
-<body>
+<bodyc lass="min-h-screen flex flex-col" >
   <div class="grid ">
     <!-- Première ligne violette -->
     <div class="bg-indigo-950">
@@ -23,7 +21,7 @@
     <!-- Ligne centrale blanche -->
     <div class="bg-white grid   items-center">
 
-    <div class="bg-white  flex  ">
+    <div class="bg-white grid  grid-cols-1 sm:grid-cols-2  gap-5 ">
       <div class=" flex  gap-5  m-8  p-2 border-b-2 border-y-indigo-300 ">
         <button id="btnOpenAjoutForm">
           <span class="material-symbols-outlined  text-green-600">
@@ -53,7 +51,7 @@
     </div>
       
 
-
+    <div class="flex flex-grow">
       <div id="main" class=" grid lg:grid-cols-4  gap-10  m-5 justify-center    md:grid-cols-2 sm:grid-cols-1  m-5  p-5 ">
         <div >
 
@@ -247,7 +245,7 @@
 
 
     </div>
-
+  </div>
     <!--<img src="./img/bg6.jpg" alt=""> -->
 
 
@@ -255,7 +253,7 @@
 
 
     <!-- Dernière ligne violette -->
-    <div class="bg-indigo-950  text-center text-gray-500 text-sm"> CopyRight By Mina </div>
+  <div class="bg-indigo-950  text-center text-gray-500 text-sm"> CopyRight By Mina </div>
   </div>
 
 
@@ -265,46 +263,3 @@
 
 </html>
 
-
-<!--  exemple de li 
-  <li class="  grid   border rounded-lg shadow-xl bg-white m-4 p-4  gap-2">
-                <div class="flex  justify-between items-center text-center ">
-                  <h5 class="titre text-lg font-semibold  text-gray-700 border-b-2 border-indigo-200"> tache 1</h5>
-
-                  <div class="flex justify-center items-center gap-2 text-center">
-                    <span onclick="SupprimerTache(this)"
-                      class=" material-symbols-outlined   cursor-pointer text-red-500 hover:text-red-400  h-4 w-4 ">
-                      delete </span>
-                    <span onclick="showformEdit(this)" name_form="btnEdit"
-                      class="  material-symbols-outlined  cursor-pointer  text-yellow-300 h-4 w-4 ">border_color</span>
-                  </div>
-
-                </div>
-                <div class="flex justify-between center items-center gap-2 text-center">
-                  <span
-                    class="block bg-orange-500  text-center   text-white font-semibold  gray-500   rounded-full w-10 h-4 text-xs">
-                    P1 </span>
-                  <span class="text-center  text-gray-500 text-xs"> 12-12-2008 </span>
-                </div>
-                <p class="description text-gray-500 text-xs  "> Realisation des Projet Js</p>
-
-                <div class="flex  gap-4  justify-evenly my-2.5 rounded-full border border-indigo-200 px-4">
-                  <div>
-                    <input onclick="editstatut(this)" type="radio" value="todo" name="radioa"
-                      class=" form-radio h-3 w-3 text-red-600 focus:ring-blue-500" checked />
-                    <label for="radio_todo" class="  text-xs text-red-500">To Do</label>
-                  </div>
-                  <div flex flex-col>
-                    <input onclick="editstatut(this)" type="radio" value="doing" name="radioa"
-                      class="form-radio h-3 w-3 text-orange-600 focus:ring-blue-500" />
-                    <label for="radio_doing" class=" text-xs  text-orange-500">Doing</label>
-                  </div>
-                  <div flex flex-col>
-                    <input onclick="editstatut(this)" type="radio" value="done" name="radioa"
-                      class="form-radio h-3 w-3 text-green-600 focus:ring-blue-500" />
-                    <label for="radio_done" class=" text-xs  text-green-500">Done</label>
-                  </div>
-                </div>
-
-
-              </li>-->
