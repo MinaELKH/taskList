@@ -5,6 +5,53 @@
 
 });*/
 
+
+//valeur aletoire 
+const taches = [
+    {
+        id: 1,
+        titre: "Faire les courses",
+        description: "Acheter des fruits et légumes.",
+        statut: "todo",
+        date: "2024-11-05",
+        priorite: "P2"
+    },
+    {
+        id: 2,
+        titre: "Terminer le projet",
+        description: "Finaliser le rapport de projet pour vendredi.",
+        statut: "todo",
+        date: "2024-11-10",
+        priorite: "P1"
+    },
+    {
+        id: 3,
+        titre: "Appeler le médecin",
+        description: "Prendre rendez-vous pour un contrôle annuel.",
+        statut: "doing",
+        date: "2024-11-15",
+        priorite: "P3"
+    },
+    {
+        id: 4,
+        titre: "Répondre aux emails",
+        description: "Répondre aux emails en attente.",
+        statut: "doing",
+        date: "2024-11-07",
+        priorite: "P2"
+    },
+    {
+        id: 5,
+        titre: "Préparer le dîner",
+        description: "Faire des pâtes avec une sauce tomate.",
+        statut: "done",
+        date: "2024-11-06",
+        priorite: "P1"
+    }
+];
+
+
+
 let ulTodo = document.getElementById("ulTodo");
 let ulDoing = document.getElementById("ulDoing");
 let ulDone = document.getElementById("ulDone");
@@ -47,15 +94,20 @@ let cmp_static_p2 = document.getElementById("statistic_p2");
 let cmp_static_p3 = document.getElementById("statistic_p3");
 
 /*   local storage */
-let id = 0;
-let arrayTaches = [];
+let id = 6;
+
+let arrayTaches =[];
+
 if (localStorage.getItem("taskStorage")) {
     console.log(" je suis pas vide ")
     arrayTaches = JSON.parse(localStorage.getItem("taskStorage"));
     id = localStorage.getItem("id");
+}else{
+     arrayTaches = taches // taches contient des valeur aletoire juste pour avoir des donnees a manipluer 
+     localStorage.setItem("taskStorage", JSON.stringify(arrayTaches));
 }
 RechargeDataLocalStorage(arrayTaches);
-
+// rempli les UL a partir de local storage
 function RechargeDataLocalStorage(arrayTaches) {
     arrayTaches.forEach(tache => {
         //console.log(tache); 
@@ -66,12 +118,11 @@ function RechargeDataLocalStorage(arrayTaches) {
         li.setAttribute("data_statut", tache.statut);
         li.setAttribute("data_date", tache.date);
         li.setAttribute("data_priorite", tache.priorite);
-
         li.innerHTML = tacheCodeHtml(tache, li);
         AppendTache(tache.statut, li);
-
     });
 }
+
 console.log(arrayTaches); 
 /*    event listener   hide formulaire affiche et desafficher */
 let ajoutMutiple = false ; 
@@ -110,7 +161,7 @@ let iconDeletedUpdate = `   <span  onclick="SupprimerTache(this)" class="materia
 /*    event listener  button Ajout  */
 document.getElementById("btnAjoutTache").addEventListener("click", AjouterTache);
 document.getElementById("btn_statistic").addEventListener("click", statistic);
-
+document.getElementById("btn_statistic_1").addEventListener("click", statistic);
 
 
 
@@ -402,7 +453,7 @@ function statistic(){
 
 
 
-
+// ca fonction pas 
 document.getElementById("btn_tri").addEventListener('click' , tri) ; 
 function tri(arg){
     arrayTaches.sort((a,b)=>a.priorite-b.priorite) ; 
