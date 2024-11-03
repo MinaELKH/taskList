@@ -22,7 +22,7 @@ let description = document.getElementById("description");
 let priorite = document.getElementById("priorite");
 let date = document.getElementById("date");
 let erreurForm = document.getElementById("pargErreur");
-
+let formAjout =  document.getElementById("modalFormAjout"); 
 
 let titre1 = document.getElementById("titre1");
 let description1 = document.getElementById("description1");
@@ -30,12 +30,16 @@ let priorite1 = document.getElementById("priorite1");
 let statut1 = document.getElementById("statut1");
 let date1 = document.getElementById("date1");
 let erreurForm1 = document.getElementById("pargErreur1");
-
+let formEdit = document.getElementById("modalFormEdit") ; 
 
 let cmp_ToDo = document.getElementById("cmp_ToDo");
 let cmp_Doing = document.getElementById("cmp_Doing");
 let cmp_Done = document.getElementById("cmp_Done");
 
+
+let cmp_static_ToDo = document.getElementById("statistic_todo");
+let cmp_static_Doing = document.getElementById("statistic_doing");
+let cmp_static_Done = document.getElementById("statistic_done");
 
 
 /*   local storage */
@@ -65,17 +69,19 @@ function RechargeDataLocalStorage(arrayTaches) {
     });
 }
 
-
 /*    event listener   hide formulaire affiche et desafficher */
-document.getElementById("btnOpenAjoutForm").addEventListener("click", function () { document.getElementById("modalFormAjout").classList.remove("hidden"); });
+
+
+document.getElementById("btnOpenAjoutForm").addEventListener("click", function () { formAjout.classList.remove("hidden"); });
 document.getElementById("closeFormEdit").addEventListener("click", function () { 
-    document.getElementById("modalFormEdit").classList.add("hidden"); 
+    formEdit.classList.add("hidden"); 
     erreurForm1.classList.add("hidden");
     erreurForm1.innerHTML = "";
 });
 
+
 document.getElementById("closeFormAjout").addEventListener("click", function () {
-    document.getElementById("modalFormAjout").classList.add("hidden");
+    formAjout.classList.add("hidden");
     erreurForm.classList.add("hidden");
     erreurForm.innerHTML = "";
 });
@@ -216,20 +222,16 @@ function AjouterTache(event) {
     if (validation(tache , "Ajout")) {
         /* creation element li */
         let li = document.createElement('li');
-
-
         li.setAttribute("id_data", tache.id)
         li.setAttribute("data_titre", tache.titre);
         li.setAttribute("data_description", tache.description);
         li.setAttribute("data_statut", tache.statut);
         li.setAttribute("data_date", tache.date);
         li.setAttribute("data_priorite", tache.priorite);
-
         li.innerHTML = tacheCodeHtml(tache, li);
         AppendTache(tache.statut, li);
-
         initForm();
-        document.getElementById("modalFormAjout").classList.add("hidden");
+        formAjout.classList.add("hidden");
         arrayTaches.push(tache);
         localStorage.setItem("taskStorage", JSON.stringify(arrayTaches));
         localStorage.setItem("id", id);
@@ -241,9 +243,9 @@ function AjouterTache(event) {
 /* ajout child li au ul */
 function AppendTache(statut, li) {
     switch (statut) {
-        case "todo": ulTodo.appendChild(li); cmp_ToDo.innerHTML = ++cmpTacheToDo; break;
-        case "doing": ulDoing.appendChild(li); cmp_Doing.innerHTML = ++cmpTachedDoing; break;
-        case "done": ulDone.appendChild(li); cmp_Done.innerHTML = ++cmpTacheDone; break;
+        case "todo": ulTodo.appendChild(li); cmp_ToDo.innerHTML = ++cmpTacheToDo ; cmp_static_ToDo.innerHTML= cmpTacheToDo ; break;
+        case "doing": ulDoing.appendChild(li); cmp_Doing.innerHTML = ++cmpTachedDoing;  cmp_static_Doing.innerHTML= cmpTachedDoing ; break;
+        case "done": ulDone.appendChild(li); cmp_Done.innerHTML = ++cmpTacheDone; cmp_static_Done.innerHTML= cmpTacheDone ; break;
     }
 }
 
@@ -278,12 +280,18 @@ function showformEdit(element) {
     titre1.value = li.getAttribute("data_titre");
     description1.value = li.getAttribute("data_description")
     priorite1.value = li.getAttribute("data_priorite")
-    // statut1.value = li.getAttribute("data_statut")
+    date1.value = li.getAttribute("data_date")
+    let statutValue = li.getAttribute("data_statut");
+    let radioToCheck = document.querySelector(`input[name="statut1"][value="${statutValue}"]`);
+    if (radioToCheck) {
+        radioToCheck.checked = true;
+    }
 
 
     document.getElementById("btnEditTache").onclick = function (event) {
         event.preventDefault();
         ModifierTache(li);
+        formEdit.classList.add("hidden");
     }
 }
 
@@ -315,16 +323,16 @@ function ModifierTache(li) {
         else {
             AppendTache(tache.statut, li);
             switch (statutAvant) {
-                case "todo": cmp_ToDo.innerHTML = --cmpTacheToDo; break;
-                case "doing": cmp_Doing.innerHTML = --cmpTachedDoing; break;
-                case "done": cmp_Done.innerHTML = --cmpTacheDone; break;
+                case "todo": cmp_ToDo.innerHTML = --cmpTacheToDo;  cmp_static_ToDo.innerHTML= cmp_ToDo.innerHTML ;  break;
+                case "doing": cmp_Doing.innerHTML = --cmpTachedDoing;  cmp_static_ToDo.innerHTML= cmp_Doing.innerHTML; break;
+                case "done": cmp_Done.innerHTML = --cmpTacheDone;  cmp_static_ToDo.innerHTML= cmp_Done.innerHTML ; break; 
             }
         }
 
         let index = arrayTaches.findIndex(t => t.id === li.getAttribute("id_data"))
         arrayTaches.splice(index,1 , tache)
         localStorage.setItem("taskStorage", JSON.stringify(arrayTaches));
-
+       
     }
 }
 
@@ -338,9 +346,9 @@ function editstatut(element_Radiobtn) {
 
     AppendTache(element_Radiobtn.value, li);
     switch (statutAvant) {
-        case "todo": cmp_ToDo.innerHTML = --cmpTacheToDo; break;
-        case "doing": cmp_Doing.innerHTML = --cmpTachedDoing; break;
-        case "done": cmp_Done.innerHTML = --cmpTacheDone; break;
+        case "todo":  cmp_ToDo.innerHTML = --cmpTacheToDo ;  cmp_static_ToDo.innerHTML= cmpTacheToDo ;  break;
+        case "doing": cmp_Doing.innerHTML = --cmpTachedDoing;  cmp_static_Doing.innerHTML= cmpTachedDoing; break;
+        case "done": cmp_Done.innerHTML = --cmpTacheDone;  cmp_static_Done.innerHTML= cmpTacheDone ; break; 
     }
 }
 
