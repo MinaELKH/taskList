@@ -97,8 +97,8 @@ let cmp_static_p3 = document.getElementById("statistic_p3");
 let id = 6;
 
 let arrayTaches =[];
-
-if (localStorage.getItem("taskStorage")) {
+const nbtaskStorage = JSON.parse(localStorage.getItem("taskStorage")).length;
+if (localStorage.getItem("taskStorage") && nbtaskStorage > 0 ) {
     console.log(" je suis pas vide ")
     arrayTaches = JSON.parse(localStorage.getItem("taskStorage"));
     id = localStorage.getItem("id");
