@@ -319,11 +319,11 @@ function ModifierTache(li) {
                 case "doing": cmp_Doing.innerHTML = --cmpTachedDoing; break;
                 case "done": cmp_Done.innerHTML = --cmpTacheDone; break;
             }
-            let index = arrayTaches.findIndex(t => t.id === li.getAttribute("id_data"))
-            console.log(index) ;
-            arrayTaches.splice(index,1 , tache)
-            localStorage.setItem("taskStorage", JSON.stringify(arrayTaches));
         }
+
+        let index = arrayTaches.findIndex(t => t.id === li.getAttribute("id_data"))
+        arrayTaches.splice(index,1 , tache)
+        localStorage.setItem("taskStorage", JSON.stringify(arrayTaches));
 
     }
 }
