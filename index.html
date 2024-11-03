@@ -50,47 +50,7 @@
           </div>
           <div>
             <ul id="ulTodo">
-              <li class="  grid   border rounded-lg shadow-xl bg-white m-4 p-4  gap-2">
-                <div class="flex  justify-between items-center text-center ">
-                  <h5 class="titre text-lg font-semibold  text-gray-700 border-b-2 border-indigo-200"> tache 1</h5>
-
-                  <div class="flex justify-center items-center gap-2 text-center">
-                    <span onclick="SupprimerTache(this)"
-                      class=" material-symbols-outlined   cursor-pointer text-red-500 hover:text-red-400  h-4 w-4 ">
-                      delete </span>
-                    <span onclick="showformEdit(this)" name_form="btnEdit"
-                      class="  material-symbols-outlined  cursor-pointer  text-yellow-300 h-4 w-4 ">border_color</span>
-                  </div>
-
-                </div>
-                <div class="flex justify-between center items-center gap-2 text-center">
-                  <span
-                    class="block bg-orange-500  text-center   text-white font-semibold  gray-500   rounded-full w-10 h-4 text-xs">
-                    P1 </span>
-                  <span class="text-center  text-gray-500 text-xs"> 12-12-2008 </span>
-                </div>
-                <p class="description text-gray-500 text-xs  "> Realisation des Projet Js</p>
-
-                <div class="flex  gap-4  justify-evenly my-2.5 rounded-full border border-indigo-200 px-4">
-                  <div>
-                    <input onclick="editstatut(this)" type="radio" value="todo" name="radioa"
-                      class=" form-radio h-3 w-3 text-red-600 focus:ring-blue-500" checked />
-                    <label for="radio_todo" class="  text-xs text-red-500">To Do</label>
-                  </div>
-                  <div flex flex-col>
-                    <input onclick="editstatut(this)" type="radio" value="doing" name="radioa"
-                      class="form-radio h-3 w-3 text-orange-600 focus:ring-blue-500" />
-                    <label for="radio_doing" class=" text-xs  text-orange-500">Doing</label>
-                  </div>
-                  <div flex flex-col>
-                    <input onclick="editstatut(this)" type="radio" value="done" name="radioa"
-                      class="form-radio h-3 w-3 text-green-600 focus:ring-blue-500" />
-                    <label for="radio_done" class=" text-xs  text-green-500">Done</label>
-                  </div>
-                </div>
-
-
-              </li>
+            
             </ul>
           </div>
         </div>
@@ -134,7 +94,7 @@
       </span>
     
       <h2 class="text-xl font-bold mb-4  text-center">Ajouter une Tache</h2>
-      <p  id="pargErreur" class="hidden rounded-full text-sm p-2 m-1 text-red-400 border  bg-white  border-red-400 "> </p>
+      <p  id="pargErreur" class="hidden  text-sm  font-semibold px-4 m-2 text-red-900  border  bg-gray-200 bg-opacity-70  border-red-400 "> </p>
         
       <form class="flex flex-col gap-3" method="get">
         <label for="titre">Tache:</label>
@@ -163,9 +123,9 @@
             <select id="priorite"
               class="bg-gray-50 border text-gray-900 text-sm rounded-lg p-2.5 focus:ring focus:ring-indigo-300">
               <option value="0">Priorité de Tâche</option>
-              <option value="p0">P0</option>
-              <option value="p1">P1</option>
-              <option value="p2">P2</option>
+              <option value="P1">P1</option>
+              <option value="P2">P2</option>
+              <option value="P3">P3</option>
             </select>
           </div>
 
@@ -224,9 +184,9 @@
               <select id="priorite1"
                 class="bg-gray-50 border text-gray-900 text-sm rounded-lg p-2.5 focus:ring focus:ring-indigo-300">
                 <option value="0">Priorité de Tâche</option>
-                <option value="p0">P0</option>
-                <option value="p1">P1</option>
-                <option value="p2">P2</option>
+                <option value="P1">P1</option>
+                <option value="P2">P2</option>
+                <option value="P3">P3</option>
               </select>
             </div>
 
@@ -265,3 +225,47 @@
 </body>
 
 </html>
+
+
+<!--  exemple de li 
+  <li class="  grid   border rounded-lg shadow-xl bg-white m-4 p-4  gap-2">
+                <div class="flex  justify-between items-center text-center ">
+                  <h5 class="titre text-lg font-semibold  text-gray-700 border-b-2 border-indigo-200"> tache 1</h5>
+
+                  <div class="flex justify-center items-center gap-2 text-center">
+                    <span onclick="SupprimerTache(this)"
+                      class=" material-symbols-outlined   cursor-pointer text-red-500 hover:text-red-400  h-4 w-4 ">
+                      delete </span>
+                    <span onclick="showformEdit(this)" name_form="btnEdit"
+                      class="  material-symbols-outlined  cursor-pointer  text-yellow-300 h-4 w-4 ">border_color</span>
+                  </div>
+
+                </div>
+                <div class="flex justify-between center items-center gap-2 text-center">
+                  <span
+                    class="block bg-orange-500  text-center   text-white font-semibold  gray-500   rounded-full w-10 h-4 text-xs">
+                    P1 </span>
+                  <span class="text-center  text-gray-500 text-xs"> 12-12-2008 </span>
+                </div>
+                <p class="description text-gray-500 text-xs  "> Realisation des Projet Js</p>
+
+                <div class="flex  gap-4  justify-evenly my-2.5 rounded-full border border-indigo-200 px-4">
+                  <div>
+                    <input onclick="editstatut(this)" type="radio" value="todo" name="radioa"
+                      class=" form-radio h-3 w-3 text-red-600 focus:ring-blue-500" checked />
+                    <label for="radio_todo" class="  text-xs text-red-500">To Do</label>
+                  </div>
+                  <div flex flex-col>
+                    <input onclick="editstatut(this)" type="radio" value="doing" name="radioa"
+                      class="form-radio h-3 w-3 text-orange-600 focus:ring-blue-500" />
+                    <label for="radio_doing" class=" text-xs  text-orange-500">Doing</label>
+                  </div>
+                  <div flex flex-col>
+                    <input onclick="editstatut(this)" type="radio" value="done" name="radioa"
+                      class="form-radio h-3 w-3 text-green-600 focus:ring-blue-500" />
+                    <label for="radio_done" class=" text-xs  text-green-500">Done</label>
+                  </div>
+                </div>
+
+
+              </li>-->

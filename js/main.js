@@ -56,7 +56,7 @@ function RechargeDataLocalStorage(arrayTaches){
         li.setAttribute("data_date", tache.date);
         li.setAttribute("data_priorite", tache.priorite);
 
-        li.innerHTML =  tacheCodeHtml(tache);
+        li.innerHTML =  tacheCodeHtml(tache , li);
         AppendTache(tache.statut  , li )  ; 
         
     });
@@ -65,10 +65,13 @@ function RechargeDataLocalStorage(arrayTaches){
 
 /*    event listener   hide formulaire affiche et desafficher */
 document.getElementById("btnOpenAjoutForm").addEventListener("click", function(){ document.getElementById("modalFormAjout").classList.remove("hidden");} );
-document.getElementById("closeFormAjout").addEventListener("click", function(){document.getElementById("modalFormAjout").classList.add("hidden");});
-document.getElementById("closeFormAjout").addEventListener("click", function(){document.getElementById("pargErreur").classList.add("hidden");});
 document.getElementById("closeFormEdit").addEventListener("click", function(){document.getElementById("modalFormEdit").classList.add("hidden");});
 
+document.getElementById("closeFormAjout").addEventListener("click", function() {
+    document.getElementById("modalFormAjout").classList.add("hidden");
+    erreurForm.classList.add("hidden");
+    erreurForm.innerHTML=""; 
+});
 
 /* icon */
 let iconDeletedUpdate = `   <span  onclick="SupprimerTache(this)" class="material-symbols-outlined cursor-pointer text-red-500 hover:text-red-400"> delete </span> 
@@ -90,15 +93,23 @@ function initForm(){
         document.getElementById("radio_todo").checked = true;
         date.value = "jj/mm/aaaa";
         priorite.value = "0";
-        erreurForm=''; 
+      
 }
 
 
 /*    function : ajout Tache     */
-function tacheCodeHtml(tache){
+function tacheCodeHtml(tache , li ){
+
+    let styleP = "";
+    switch(tache.priorite){
+        case "P1" :  styleP =`<span class="block bg-red-500 text-red-900 text-xs font-medium  rounded-full w-10 h-4 "> ${tache.priorite} </span>`;   break ; 
+        case "P2" : styleP = `<span class="block bg-orange-100 text-orange-600 text-xs font-medium  rounded-full w-10 h-4"> ${tache.priorite} </span>`;   break ; 
+        case "P3" : styleP = `<span class="block bg-green-100 text-green-600 text-xs font-medium  rounded-full w-10 h-4"> ${tache.priorite} </span>`;   break ; 
+    
+    }
+    li.classList.add('grid', 'border', 'rounded-lg', 'shadow-xl', 'bg-white', 'm-4', 'p-4', 'gap-2');
     Codehtml=`       
-    <li class="  grid   border rounded-lg shadow-xl bg-white m-4 p-4  gap-2">
-    <div  class="flex  justify-between items-center text-center ">
+        <div  class="flex  justify-between items-center text-center ">
       <h5 class="titre text-lg font-semibold  text-gray-700 border-b-2 border-indigo-200">${tache.titre}</h5> 
      
      <div  class="flex justify-center items-center gap-2 text-center"> 
@@ -108,7 +119,7 @@ function tacheCodeHtml(tache){
 
      </div>
      <div class="flex justify-between center items-center gap-2 text-center" >
-     <span class="block bg-orange-500  text-center   text-white font-semibold  gray-500   rounded-full w-10 h-4 text-xs"> ${tache.priorite} </span>  
+     ${styleP} 
      <span class="text-center  text-gray-500 text-xs"> ${tache.date} </span>  
      </div>
        <p class="description text-gray-500 text-xs  "> ${tache.description}</p>
@@ -127,45 +138,55 @@ function tacheCodeHtml(tache){
          <label for="radio_done" class=" text-xs  text-green-500">Done</label>
          </div>
        </div>
-   </li>
+
           `; 
 
           return  Codehtml; 
 }
 
-function validation(tache){
+function validation(tache ){
+
     const today = new Date();
     today.setHours(0, 0, 0, 0); // Réinitialise l'heure pour comparer uniquement les dates
     const date = new Date(tache.date);
-
-    let erreur = "Veuillez vérifier :";
-    console.log(tache ) ;
-    console.log(date ) ;
-    console.log(today) ;
+     let valide = true ; 
+     let erreur ="" ; 
     // Vérification des champs
     if (!tache.titre) {
-        erreur += ' Titre';
+        erreur += '<br> *Titre ';
+        valide = false ;
     }
     if (!tache.description) {
-        erreur += ' Description';
+        erreur += '<br>  *Description';
+        valide = false ;
     }
     if (!tache.statut) {
-        erreur += ' Statut';
+        erreur += '<br>  *Statut';
+        valide = false ;
     }
-    if (tache.priorite === "") {
-        erreur += ' Priorité';
+    if (tache.priorite === "0") {
+        erreur += '<br>  *Priorité';
+        valide = false ;
     }
 
     if (!tache.date) {
-        erreur += ' Date';
+        erreur += '<br>  *Date';
+        valide = false ;
     } else if (date < today) {
-        erreur += ' La date ne peut pas être dans le passé';
+        erreur += '<br>  *La date ne peut pas être dans le passé';
+        valide = false ;
     }
 
-    console.log(erreur)
+  if (!(valide)){
     erreurForm.classList.remove("hidden"); 
-    erreurForm.innerHTML= erreur ; 
+     
+     erreurForm.innerHTML= ` <span class=" text-gray-900"> Veuillez vérifier : </span>` + erreur ; 
+     console.log(valide);
+  }
+ 
 
+
+    return valide ; 
 }
 
 function AjouterTache(event){
@@ -181,10 +202,11 @@ function AjouterTache(event){
     tache.priorite = priorite.value ; 
 
     
-    validation(tache) ;
+    if (validation(tache)){
     /* creation element li */
         let li = document.createElement('li'); 
-    
+       
+
         li.setAttribute("id_data" , tache.id)
         li.setAttribute("data_titre", tache.titre);
         li.setAttribute("data_description",   tache.description);
@@ -192,13 +214,15 @@ function AjouterTache(event){
         li.setAttribute("data_date", tache.date);
         li.setAttribute("data_priorite", tache.priorite);
 
-        li.innerHTML =  tacheCodeHtml(tache);
+        li.innerHTML =  tacheCodeHtml(tache , li );
         AppendTache(tache.statut  , li )  ; 
 
         initForm(); 
+        document.getElementById("modalFormAjout").classList.add("hidden");
         arrayTaches.push(tache) ; 
         localStorage.setItem("taskStorage", JSON.stringify(arrayTaches));
-
+    } 
+    
 
 }
 
@@ -221,13 +245,18 @@ function SupprimerTache(element){
         case "todo" : cmp_ToDo.innerHTML = --cmpTacheToDo ; break;
         case "doing" :  cmp_Doing.innerHTML = --cmpTachedDoing ;  break;
         case "done" :  cmp_Done.innerHTML = --cmpTacheDone ;break;
-      }
+    } ; 
+     let d = li.getAttribute("id_data") ; 
+     console.log(d);
+    arrayTaches = arrayTaches.filter(tache => tache.id != d);
+    localStorage.setItem("taskStorage", JSON.stringify(arrayTaches));
 }
 
 /*    function : modifier Tache     */
 function showformEdit(element){
 
-    let li = element.parentNode.parentNode.parentNode.parentNode;
+    let li = element.parentNode.parentNode.parentNode;
+   
     document.getElementById("modalFormEdit").classList.remove("hidden");
     titre1.value = li.getAttribute("data_titre");
     description1.value= li.getAttribute("data_description")
@@ -262,9 +291,9 @@ function ModifierTache(li){
     li.setAttribute("data_date", tache.date);
     li.setAttribute("data_priorite", tache.priorite);
 
-    li.innerHTML =  tacheCodeHtml(tache);
+   // li.innerHTML =  tacheCodeHtml(tache);
     if (statutAvant === tache.statut){
-        li.innerHTML =  tacheCodeHtml(tache);
+        li.innerHTML =  tacheCodeHtml(tache , li );
     } 
     else {
         AppendTache(tache.statut  , li )  ;
