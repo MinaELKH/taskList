@@ -42,6 +42,10 @@ let cmp_static_Doing = document.getElementById("statistic_doing");
 let cmp_static_Done = document.getElementById("statistic_done");
 
 
+let cmp_static_p1 = document.getElementById("statistic_p1");
+let cmp_static_p2 = document.getElementById("statistic_p2");
+let cmp_static_p3 = document.getElementById("statistic_p3");
+
 /*   local storage */
 let id = 0;
 let arrayTaches = [];
@@ -68,11 +72,11 @@ function RechargeDataLocalStorage(arrayTaches) {
 
     });
 }
-
+console.log(arrayTaches); 
 /*    event listener   hide formulaire affiche et desafficher */
-
-
-document.getElementById("btnOpenAjoutForm").addEventListener("click", function () { formAjout.classList.remove("hidden"); });
+let ajoutMutiple = false ; 
+document.getElementById("btnOpenAjoutMultipForm").addEventListener("click", function () { formAjout.classList.remove("hidden"); ajoutMutiple = true ;});
+document.getElementById("btnOpenAjoutForm").addEventListener("click", function () { formAjout.classList.remove("hidden"); ajoutMutiple = false ;});
 document.getElementById("closeFormEdit").addEventListener("click", function () { 
     formEdit.classList.add("hidden"); 
     erreurForm1.classList.add("hidden");
@@ -86,6 +90,16 @@ document.getElementById("closeFormAjout").addEventListener("click", function () 
     erreurForm.innerHTML = "";
 });
 
+document.getElementById("closeStatistic").addEventListener("click", function () { 
+    document.getElementById("dashbord").classList.add("hidden"); 
+
+});
+
+document.getElementById("closeStatistic").addEventListener("click", function () { 
+    document.getElementById("dashbord").classList.add("hidden"); 
+
+});
+
 /* icon */
 let iconDeletedUpdate = `   <span  onclick="SupprimerTache(this)" class="material-symbols-outlined cursor-pointer text-red-500 hover:text-red-400"> delete </span> 
                              <span   onclick="showformEdit(this)"  class="material-symbols-outlined  cursor-pointer  text-yellow-300">border_color</span>`
@@ -95,6 +109,7 @@ let iconDeletedUpdate = `   <span  onclick="SupprimerTache(this)" class="materia
 
 /*    event listener  button Ajout  */
 document.getElementById("btnAjoutTache").addEventListener("click", AjouterTache);
+document.getElementById("btn_statistic").addEventListener("click", statistic);
 
 
 
@@ -231,10 +246,14 @@ function AjouterTache(event) {
         li.innerHTML = tacheCodeHtml(tache, li);
         AppendTache(tache.statut, li);
         initForm();
-        formAjout.classList.add("hidden");
+       
         arrayTaches.push(tache);
         localStorage.setItem("taskStorage", JSON.stringify(arrayTaches));
         localStorage.setItem("id", id);
+
+         if (ajoutMutiple == false){ formAjout.classList.add("hidden");}
+       
+         
     }
 
 
@@ -353,4 +372,39 @@ function editstatut(element_Radiobtn) {
 }
 
 
+function statistic(){
+    document.getElementById("dashbord").classList.remove("hidden"); 
+      let p1 =0 ; 
+      let p2=0 ;
+      let p3 =0 ; 
+    for (ts of arrayTaches) {
+        console.log(ts);
+        if (ts.priorite === "P1") {
+            p1++;
+        } else if (ts.priorite === "P2") {
+            p2++;
+        } else if (ts.priorite === "P3") {
+            p3++;
+        }
+    }
+    cmp_static_p1.innerHTML= p1;
+    cmp_static_p2.innerHTML= p2;
+    cmp_static_p3.innerHTML= p3;
 
+    document.getElementById("statistic_todo1").innerHTML = cmp_static_ToDo.innerHTML;
+    document.getElementById("statistic_doing1").innerHTML = cmp_static_Doing.innerHTML;
+    document.getElementById("statistic_done1").innerHTML = cmp_static_Done.innerHTML;
+    console.log(p1) ; console.log(p2) ; console.log(p3) ; 
+
+
+}
+
+
+
+
+
+document.getElementById("btn_tri").addEventListener('click' , tri) ; 
+function tri(arg){
+    arrayTaches.sort((a,b)=>a.priorite-b.priorite) ; 
+    console.log(arrayTaches[1]); 
+}
